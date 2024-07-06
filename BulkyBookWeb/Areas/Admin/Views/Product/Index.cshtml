@@ -2,7 +2,7 @@
 
 <partial name="_Notification" />
 
-<div class="card shadow border-0 mt-4">
+<div class="card shadow border-0 mt-4 mb-4">
     <div class="card-header bg-secondary bg-gradient ml-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
@@ -25,7 +25,7 @@
         </div>
 
 
-        <table class="table table-bordered table-striped">
+        <table id="tblData" class="table table-bordered table-striped" width="100%">
             <thead>
                 <tr>
                     <th>
@@ -36,34 +36,48 @@
                         ISBN
                     </th>
                     <th>
-                        Author
+                        Price
                     </th>
                     <th>
-                        Category
+                        Author
                     </th>
-
+                    <th>Category </th>
                     <th></th>
                 </tr>
             </thead>
-            <
-            <tbody>
+
+          
+        </table>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/product.js"></script>
+}
+
+
+@*   <tbody>
                 @foreach (var obj in Model)
                 {
                     <tr>
                         <td>
                             @obj.Title
                         </td>
-                        
+
                         <td>
                             @obj.ISBN
+                        </td>
+                        <td>
+                            @obj.Price
                         </td>
                         <td>
                             @obj.Author
                         </td>
                        <td>
-
+                           @obj.Category.Name
                        </td>
-                        
+
                         <td>
                             <div class="w-75 btn-group" role="group">
                                 <a asp-controller="Product" asp-action="Upsert" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
@@ -77,11 +91,4 @@
                     </tr>
                 }
 
-            </tbody>
-        </table>
-
-    </div>
-</div>
-
-<div class="Container">
-</div>
+            </tbody> *@
