@@ -1,7 +1,7 @@
 ﻿@model Product
 
 <form method="post">
-    <div class="card shadow border-0 mt-4 mb-4">
+    <div class="card shadow border-0 mt-4 mb-5">
         <div class="card-header bg-secondary bg-gradient text-light py-4">
             <div class="row">
                 <div class="col-12 text-center">
@@ -21,7 +21,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12 col-lg-3 offset-lg-1 text-center mb-3">
-                        <img src="@Model.ImageUrl" class="rounded" />
+                        <img src="\@Model.ImageUrl" width ="100%" class="rounded" />
                     </div>
                     <div class="col-12 col-lg-6 offset-lg-1">
 
@@ -61,10 +61,10 @@
                                 <div>@Model.Price</div>
                             </div>
                             <div class="p-1 col-3 col-lg-2 bg-white text-warning fw-bold">
-                                <div>@Model.Price50</div>
+                                <div>@Model.Price50 </div>
                             </div>
                             <div class="p-1 col-3 col-lg-2 bg-white text-warning fw-bold">
-                                <div>@Model.</div>
+                                <div>@Model.Price100</div>
                             </div>
                         </div>
                         <div class="row pl-2 my-3">
