@@ -26,6 +26,7 @@ builder.Services.AddRazorPages(); //Adding Razor Pages (LOGIN, Register)
 
 /*builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();*/ //when asked about IcategoryRepo give implementation of CategoryRepository
  builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 builder.Services.AddScoped<IEmailSender,EmailSender>();
 
 var app = builder.Build();
