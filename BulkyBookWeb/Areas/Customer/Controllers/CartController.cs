@@ -105,7 +105,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             {
                 //it is a Company User
                 ShoppingCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusDelayedPayment;
-                ShoppingCartVM.OrderHeader.OrderStatus = SD.StatusPending;
+                ShoppingCartVM.OrderHeader.OrderStatus = SD.StatusApproved;
             }
             _unitOfWork.OrderHeader.Add(ShoppingCartVM.OrderHeader);
             _unitOfWork.Save();
@@ -134,6 +134,20 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
 
         public IActionResult OrderConfirmation(int id)
         {
+            OrderHeader orderHeader = _unitOfWork.OrderHeader.Get(u=>u.Id == id,includeProperties:"ApplicationUser");
+
+            if(orderHeader.PaymentStatus!= SD.PaymentStatusDelayedPayment)
+            {
+                //directly making payment successfull  , this is an customer order
+                _unitOfWork.OrderHeader.UpdateStatus(id, SD.StatusApproved, SD.PaymentStatusApproved);
+
+                _unitOfWork.Save();
+            }
+            List<ShoppingCart> shoppingCarts = _unitOfWork.ShoppingCart
+                    .GetAll(u => u.ApplicationUserId == orderHeader.ApplicationUserId).ToList();
+            _unitOfWork.ShoppingCart.RemoveRange(shoppingCarts);
+            _unitOfWork.Save();
+
             return View(id);
         }
 

@@ -24,5 +24,18 @@ namespace BulkyBook.DataAccess.Repository
         {
             _db.Orderheaders.Update(obj);
         }
+
+        public void UpdateStatus(int id, string orderStatus, string? paymentStatus = null)
+        {
+            var orderFromDb = _db.Orderheaders.FirstOrDefault(x => x.Id == id);
+            if(orderFromDb != null)
+            {
+                orderFromDb.OrderStatus = orderStatus;
+                if (!string.IsNullOrEmpty(paymentStatus))
+                {
+                    orderFromDb.PaymentStatus = paymentStatus;
+                }
+            }
+        }
     }
 }
