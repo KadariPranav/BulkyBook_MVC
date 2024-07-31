@@ -22,6 +22,14 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LogoutPath = $"/Identity/Account/Logout";
     options.AccessDeniedPath= $"/Identity/Account/AccessDenied";  //AccessDenied
 });
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options => {
+    options.IdleTimeout = TimeSpan.FromMinutes(100);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 builder.Services.AddRazorPages(); //Adding Razor Pages (LOGIN, Register)
 
 /*builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();*/ //when asked about IcategoryRepo give implementation of CategoryRepository
@@ -46,6 +54,8 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication(); //Verifing the users's idendity
 app.UseAuthorization();
+
+app.UseSession();
 app.MapRazorPages();
 
 app.MapControllerRoute(
