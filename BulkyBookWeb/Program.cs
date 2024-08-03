@@ -30,6 +30,11 @@ builder.Services.AddSession(options => {
     options.Cookie.IsEssential = true;
 });
 
+builder.Services.AddAuthentication().AddFacebook(option => {
+    option.AppId = "851797789818051";
+    option.AppSecret = "2987c1e0861f7e2f99baa775dbf2c9d8";
+});
+
 builder.Services.AddRazorPages(); //Adding Razor Pages (LOGIN, Register)
 
 /*builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();*/ //when asked about IcategoryRepo give implementation of CategoryRepository
