@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using BulkyBook.Utility;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using BulkyBook.DataAccess.DbInitializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +36,7 @@ builder.Services.AddAuthentication().AddFacebook(option => {
     option.AppSecret = "2987c1e0861f7e2f99baa775dbf2c9d8";
 });
 
+builder.Services.AddScoped<IDbIntializer, DbIntializer>();
 builder.Services.AddRazorPages(); //Adding Razor Pages (LOGIN, Register)
 
 /*builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();*/ //when asked about IcategoryRepo give implementation of CategoryRepository
@@ -62,8 +64,17 @@ app.UseAuthorization();
 
 app.UseSession();
 app.MapRazorPages();
-
+SeedDatabase();
 app.MapControllerRoute(
     name: "default",
     pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 app.Run();
+
+void SeedDatabase()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbIntializer>();
+        dbInitializer.Initialize();
+    }
+}
